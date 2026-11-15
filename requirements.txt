@@ -107,7 +107,7 @@ distlib==0.4.0
 distro==1.9.0
 Django==5.2.16
 dnslib==0.9.25
-dnspython==2.8.0
+dnspython==2.9.2
 docopt==0.6.2
 docutils==0.22.4
 donut-shellcode==1.1
@@ -275,7 +275,7 @@ netaddr==1.3.0
 netexec==1.5.1
 netifaces==0.11.0
 networkx==3.4.2
-nltk==3.10.0
+nltk==3.10.4
 nodeenv==1.10.0
 notus-scanner==22.7.2
 nplusone==1.0.0
@@ -308,7 +308,7 @@ pexpect==4.9.0
 pgcli==4.5.0
 pgspecial==2.2.1
 phonenumbers==8.12.57
-pillow==12.3.0
+pillow==13.0.0
 pipx==1.15.0
 plaster==1.1.2
 plaster_pastedeploy==0.5
@@ -480,7 +480,7 @@ smbmap==1.10.7
 smmap==6.0.0
 sniffio==1.3.1
 sortedcontainers==2.4.0
-soupsieve==2.8.4
+soupsieve==4.0
 spinners==0.0.24
 SQLAlchemy==2.0.48
 sqlalchemy-schemadisplay==1.3
@@ -515,7 +515,7 @@ tldextract==5.3.1
 tls-parser==1.2.2
 tomlkit==0.13.3
 torbrowser-launcher==0.3.9
-tornado==6.5.5
+tornado==6.6.1
 tqdm==4.69.0
 traitlets==5.14.3
 translationstring==1.4
@@ -737,7 +737,7 @@ Unidecode==1.4.0
 uritemplate==4.2.0
 urllib3==2.7.0
 urlscan==1.0.8
-urwid==3.0.4
+urwid==4.0.7
 userpath==1.9.2
 uvicorn==0.38.0
 uvloop==0.22.1
