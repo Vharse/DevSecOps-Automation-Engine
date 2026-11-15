@@ -92,16 +92,20 @@ jobs:
         if: always()
         run: |
           if [ -f "zap-report.json" ]; then
-            echo "Uploading DAST findings to DefectDojo..."
-            curl -X POST "${{ secrets.DEFECTDOJO_URL }}/api/v2/import-scan/" \
-              -H "Authorization: Token ${{ secrets.DEFECTDOJO_TOKEN }}" \
-              -F "active=true" \
-              -F "verified=false" \
-              -F "scan_type=ZAP Scan" \
-              -F "minimum_severity=Low" \
-              -F "engagement_name=CI/CD Pipeline" \
-              -F "product_name=Product Security Gate" \
-              -F "file=@zap-report.json"
+            if [ -n "${{ secrets.DEFECTDOJO_URL }}" ]; then
+              echo "Uploading DAST findings to DefectDojo..."
+              curl -X POST "${{ secrets.DEFECTDOJO_URL }}/api/v2/import-scan/" \
+                -H "Authorization: Token ${{ secrets.DEFECTDOJO_TOKEN }}" \
+                -F "active=true" \
+                -F "verified=false" \
+                -F "scan_type=ZAP Scan" \
+                -F "minimum_severity=Low" \
+                -F "engagement_name=CI/CD Pipeline" \
+                -F "product_name=Product Security Gate" \
+                -F "file=@zap-report.json"
+            else
+              echo "Skipping DefectDojo upload: DEFECTDOJO_URL secret is not configured."
+            fi
           fi
 
       - name: "Tear Down Target Application"
