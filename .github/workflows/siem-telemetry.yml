@@ -1,4 +1,7 @@
-name: "SIEM Telemetry & Alerting Workflow"
+name: "SIEM Monitoring & Alerting Workflow"
+
+permissions:
+      contents: read
 
 on:
   workflow_call:
@@ -15,8 +18,6 @@ jobs:
     name: "Ship Security Events to LOGIX SIEM"
     if: always()
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     env:
       ELASTIC_HOST: ${{ secrets.ELASTIC_HOST }}
       ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
