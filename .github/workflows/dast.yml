@@ -107,6 +107,7 @@ jobs:
               echo "Skipping DefectDojo upload: DEFECTDOJO_URL secret is not configured."
             fi
           fi
+        fi
 
       - name: "Tear Down Target Application"
         if: always()
