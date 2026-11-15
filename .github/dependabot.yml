@@ -21,9 +21,9 @@ updates:
         patterns:
           - "*"
 
-  # 1B. GitHub Actions (Custom Actions Directory)
+  # 1B. GitHub Actions (Custom Slack Action Directory)
   - package-ecosystem: "github-actions"
-    directory: "/.github/actions"
+    directory: "/.github/actions/slack-github-action"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -126,4 +126,3 @@ updates:
       all-pip-src:
         patterns:
           - "*"
-
