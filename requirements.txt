@@ -308,7 +308,7 @@ pexpect==4.9.0
 pgcli==4.5.0
 pgspecial==2.2.1
 phonenumbers==8.12.57
-pillow==12.3.0
+pillow==13.0.0
 pipx==1.15.0
 plaster==1.1.2
 plaster_pastedeploy==0.5
