@@ -275,7 +275,7 @@ netaddr==1.3.0
 netexec==1.5.1
 netifaces==0.11.0
 networkx==3.4.2
-nltk==3.10.0
+nltk==3.10.4
 nodeenv==1.10.0
 notus-scanner==22.7.2
 nplusone==1.0.0
