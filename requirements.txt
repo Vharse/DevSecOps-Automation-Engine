@@ -737,7 +737,7 @@ Unidecode==1.4.0
 uritemplate==4.2.0
 urllib3==2.7.0
 urlscan==1.0.8
-urwid==3.0.4
+urwid==4.0.7
 userpath==1.9.2
 uvicorn==0.38.0
 uvloop==0.22.1
