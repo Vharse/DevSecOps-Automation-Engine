@@ -81,7 +81,7 @@ jobs:
 
               print(f"[+] Uploading {file_path} as {scan_type}...")
               success = False
-              
+
               for attempt in range(3):
                   try:
                       with open(file_path, "rb") as f:
@@ -98,7 +98,7 @@ jobs:
                           response = requests.post(base_url, headers=headers, data=data, files=files, timeout=120)
                           print(f"    Status: {response.status_code}")
                           print(f"    Response: {response.text}")
-                          
+
                           if response.status_code in [200, 201]:
                               success = True
                               break
