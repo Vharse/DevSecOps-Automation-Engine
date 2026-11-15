@@ -515,7 +515,7 @@ tldextract==5.3.1
 tls-parser==1.2.2
 tomlkit==0.13.3
 torbrowser-launcher==0.3.9
-tornado==6.5.5
+tornado==6.6.1
 tqdm==4.69.0
 traitlets==5.14.3
 translationstring==1.4
