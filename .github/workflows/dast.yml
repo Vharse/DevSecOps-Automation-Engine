@@ -91,7 +91,8 @@ jobs:
       - name: "Ingest Findings into DefectDojo"
         if: always()
         run: |
-          if [ -f "zap-report.json" ]; then
+        if [ -f "zap-report.json" ]; then
+          if [ -n "${{ secrets.DEFECTDOJO_URL }}" ]; then
             echo "Uploading DAST findings to DefectDojo..."
             curl -X POST "${{ secrets.DEFECTDOJO_URL }}/api/v2/import-scan/" \
               -H "Authorization: Token ${{ secrets.DEFECTDOJO_TOKEN }}" \
@@ -102,7 +103,10 @@ jobs:
               -F "engagement_name=CI/CD Pipeline" \
               -F "product_name=Product Security Gate" \
               -F "file=@zap-report.json"
+          else
+            echo "Skipping DefectDojo upload: DEFECTDOJO_URL secret is not configured."
           fi
+        fi
 
       - name: "Tear Down Target Application"
         if: always()
