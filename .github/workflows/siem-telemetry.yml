@@ -1,4 +1,4 @@
-name: "SIEM Monitoring & Alerting Workflow"
+name: "SIEM Monitoring & Alerting"
 
 permissions:
       contents: read
