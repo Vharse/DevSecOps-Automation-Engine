@@ -480,7 +480,7 @@ smbmap==1.10.7
 smmap==6.0.0
 sniffio==1.3.1
 sortedcontainers==2.4.0
-soupsieve==2.8.4
+soupsieve==4.0
 spinners==0.0.24
 SQLAlchemy==2.0.48
 sqlalchemy-schemadisplay==1.3
