@@ -105,7 +105,7 @@ deprecation==2.1.0
 dicttoxml==1.7.16
 distlib==0.4.0
 distro==1.9.0
-Django==5.2.16
+Django==5.2.17
 dnslib==0.9.25
 dnspython==2.9.2
 docopt==0.6.2
