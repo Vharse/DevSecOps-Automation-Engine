@@ -14,13 +14,12 @@ permissions:
   contents: read
   pull-requests: read
   security-events: write
+  actions: read
+  id-token: write
+
 
 jobs:
   sast:
-    permissions:
-      contents: read
-      pull-requests: read
-     # security-events: write
     uses: ./.github/workflows/sast.yml
     secrets:
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -29,37 +28,19 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   secret-scanning:
-    permissions:
-      contents: read
-      pull-requests: read
-     # security-events: write
     uses: ./.github/workflows/secret-scanning.yml
 
   container-and-sbom:
-    permissions:
-      contents: read
-      pull-requests: read
-     # security-events: write
     uses: ./.github/workflows/container-sbom.yml
     secrets:
       DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
       DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
 
   iac-and-opa:
-    permissions:
-      contents: read
-      pull-requests: read
-     # security-events: write
     uses: ./.github/workflows/iac-opa.yml
 
   scorecard-audit:
     if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-    permissions:
-      contents: read
-      pull-requests: read
-      actions: read
-      id-token: write
-     # security-events: write
     uses: ./.github/workflows/scorecard.yml
 
   siem-telemetry:
@@ -73,9 +54,6 @@ jobs:
   dast:
     name: "DAST Scan"
     uses: ./.github/workflows/dast.yml
-    permissions:
-      contents: read
-     # security-events: write
     with:
       target_url: "http://localhost:8080"
       zap_plan_path: ".zap/zap-plan.yaml"
@@ -88,8 +66,6 @@ jobs:
   defectdojo-ingestion:
     needs: [sast, secret-scanning, container-and-sbom, iac-and-opa, scorecard-audit]
     if: always()
-    permissions:
-      contents: read
     uses: ./.github/workflows/defectdojo-sync.yml
     with:
       sast_job_needed: true
