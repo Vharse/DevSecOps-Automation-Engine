@@ -22,6 +22,12 @@ permissions:
 =======
 >>>>>>> c81bd8e (fix(ci): restrict security-events write permission to least-privilege jobs)
 
+steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egressive-policy: audit
+
 jobs:
   sast:
     uses: ./.github/workflows/sast.yml

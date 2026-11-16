@@ -12,6 +12,7 @@ jobs:
       id-token: write
       contents: read
       actions: read
+<<<<<<< HEAD
 
     steps:
       - name: Checkout Repository
@@ -19,13 +20,26 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+=======
+>>>>>>> 886dac7 (fix(ci): add step-security harden-runner and update workflow hardening)
 
-      - name: Run OpenSSF Scorecard
-        uses: ./.github/actions/scorecard-action
-        with:
-          results_file: scorecard-results.sarif
-          results_format: sarif
-          publish_results: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@cb658518fdf98f80456100994a558509c25605d8
+      with:
+        egressive-policy: audit
+
+    - name: Checkout Repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      with:
+        fetch-depth: 0
+
+    - name: Run OpenSSF Scorecard
+      uses: ./.github/actions/scorecard-action
+      with:
+        results_file: scorecard-results.sarif
+        results_format: sarif
+        publish_results: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Upload SARIF to GitHub Security Tab
         if: github.actor != 'dependabot[bot]'
