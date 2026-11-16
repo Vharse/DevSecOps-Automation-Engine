@@ -735,7 +735,7 @@ unicodedata2==17.0.1
 unicrypto==0.0.12
 Unidecode==1.4.0
 uritemplate==4.2.0
-urllib3==2.7.0
+urllib3==2.8.0
 urlscan==1.0.8
 urwid==4.0.7
 userpath==1.9.2
