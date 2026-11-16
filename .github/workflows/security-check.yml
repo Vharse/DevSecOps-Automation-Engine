@@ -12,6 +12,7 @@ concurrency:
 
 permissions:
   contents: read
+  security-events: write
 
 jobs:
   sast:
