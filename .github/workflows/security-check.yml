@@ -1,96 +1,76 @@
 name: Product Security Check
 
 on:
-  push:
-    branches: [main, ci-updates]
-  pull_request:
-    branches: [main]
+  push:
+    branches: [main, ci-updates]
+  pull_request:
+    branches: [main]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+ 
 permissions:
-  contents: read
-  pull-requests: read
-  actions: read
-  id-token: write
+  contents: read
+  pull-requests: read
+  actions: read
+  id-token: write
+  security-events: write
 
 jobs:
-  sast:
-    uses: ./.github/workflows/sast.yml
-    permissions:
-      contents: read
-      pull-requests: read
-      security-events: write
+  sast:
+    uses: ./.github/workflows/sast.yml
+    secrets:
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    secrets:
-      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  secret-scanning:
+    uses: ./.github/workflows/secret-scanning.yml
 
-  secret-scanning:
-    uses: ./.github/workflows/secret-scanning.yml
-    permissions:
-      contents: read
-      pull-requests: read
-      security-events: write
+  container-and-sbom:
+    uses: ./.github/workflows/container-sbom.yml
+    secrets:
+      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
+      DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
 
-  container-and-sbom:
-    uses: ./.github/workflows/container-sbom.yml
-    permissions:
-      contents: read
-      pull-requests: read
-      security-events: write
-    secrets:
-      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
-      DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
+  iac-and-opa:
+    uses: ./.github/workflows/iac-opa.yml
 
-  iac-and-opa:
-    uses: ./.github/workflows/iac-opa.yml
-    permissions:
-      contents: read
-      pull-requests: read
-      security-events: write
+  scorecard-audit:
+    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    uses: ./.github/workflows/scorecard.yml
 
-  scorecard-audit:
-    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-    uses: ./.github/workflows/scorecard.yml
-    permissions:
-      contents: read
-      actions: read
-      id-token: write
-      security-events: write
+  siem-telemetry:
+    uses: ./.github/workflows/siem-telemetry.yml
+    secrets:
+      ELASTIC_HOST: ${{ secrets.ELASTIC_HOST }}
+      ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
 
-  siem-telemetry:
-    uses: ./.github/workflows/siem-telemetry.yml
-    secrets:
-      ELASTIC_HOST: ${{ secrets.ELASTIC_HOST }}
-      ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
+  dast:
+    name: "DAST Scan"
+    uses: ./.github/workflows/dast.yml
+    permissions:
+      contents: read
+      security-events: write
+    with:
+      target_url: "http://localhost:8080"
+      zap_plan_path: ".zap/zap-plan.yaml"
+    secrets:
+      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
+      DEFECTDOJO_TOKEN: ${{ secrets.DEFECTDOJO_API_KEY }}
+      APP_USER: ${{ secrets.APP_USER }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
 
-  dast:
-    name: "DAST Scan"
-    uses: ./.github/workflows/dast.yml
-    permissions:
-      contents: read
-      security-events: write
-    with:
-      target_url: "http://localhost:8080"
-      zap_plan_path: ".zap/zap-plan.yaml"
-    secrets:
-      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
-      DEFECTDOJO_TOKEN: ${{ secrets.DEFECTDOJO_API_KEY }}
-      APP_USER: ${{ secrets.APP_USER }}
-      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+  defectdojo-ingestion:
+    needs: [sast, secret-scanning, container-and-sbom, iac-and-opa, scorecard-audit]
+    if: always()
+    uses: ./.github/workflows/defectdojo-sync.yml
+    with:
+      sast_job_needed: true
+      container_job_needed: true
+    secrets:
+      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
+      DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
 
-  defectdojo-ingestion:
-    needs: [sast, secret-scanning, container-and-sbom, iac-and-opa, scorecard-audit]
-    if: always()
-    uses: ./.github/workflows/defectdojo-sync.yml
-    with:
-      sast_job_needed: true
-      container_job_needed: true
-    secrets:
-      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
-      DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
