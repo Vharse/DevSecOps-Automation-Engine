@@ -21,7 +21,9 @@ jobs:
     uses: ./.github/workflows/sast.yml
     permissions:
       contents: read
+      pull-requests: read
       security-events: write
+
     secrets:
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
