@@ -25,6 +25,12 @@ permissions:
 jobs:
   sast:
     uses: ./.github/workflows/sast.yml
+<<<<<<< HEAD
+=======
+    permissions:
+      contents: read
+      security-events: write
+>>>>>>> 4939bfe (fix(ci): add explicit permissions block to sast workflow call)
     secrets:
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -33,15 +39,24 @@ jobs:
 
   secret-scanning:
     uses: ./.github/workflows/secret-scanning.yml
+    permissions:
+      contents: read
+      security-events: write
 
   container-and-sbom:
     uses: ./.github/workflows/container-sbom.yml
+    permissions:
+      contents: read
+      security-events: write
     secrets:
       DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
       DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
 
   iac-and-opa:
     uses: ./.github/workflows/iac-opa.yml
+    permissions:
+      contents: read
+      security-events: write
 
   scorecard-audit:
     if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
@@ -51,6 +66,9 @@ jobs:
       security-events: write
       id-token: write
     uses: ./.github/workflows/scorecard.yml
+    permissions:
+      contents: read
+      security-events: write
 
   siem-telemetry:
     permissions:
