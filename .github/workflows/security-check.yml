@@ -12,6 +12,12 @@ concurrency:
 permissions:
   contents: read
   pull-requests: read
+<<<<<<< HEAD
+=======
+  actions: read
+  id-token: write
+  security-events: write
+>>>>>>> c3acf81 (fix(ci): update workflow permissions)
 
 jobs:
   sast:
