@@ -23,7 +23,7 @@ aniso8601==10.0.1
 annotated-doc==0.0.4
 annotated-types==0.8.0
 antlr4-python3-runtime==4.9.2
-anyio==4.12.1
+anyio==4.14.2
 apispec==6.10.0
 apispec-webframeworks==0.5.2
 arc4==0.4.0
