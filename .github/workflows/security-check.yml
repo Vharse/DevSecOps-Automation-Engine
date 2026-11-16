@@ -13,13 +13,9 @@ concurrency:
 permissions:
   contents: read
   pull-requests: read
-<<<<<<< HEAD
-  security-events: write 
-=======
   actions: read
   id-token: write
   security-events: write
->>>>>>> 85ac322 (fix(ci): add required job-level permissions to scorecard workflow call)
 
 jobs:
   sast:
