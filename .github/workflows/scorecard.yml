@@ -8,7 +8,7 @@ jobs:
     name: "OpenSSF Security Posture Evaluation"
     runs-on: ubuntu-latest
     permissions:
-      security-events: write
+     # security-events: write
       id-token: write
       contents: read
       actions: read

@@ -23,6 +23,9 @@ on:
       APP_PASSWORD:
         required: false
 
+permissions:
+  contents: read
+
 jobs:
   dast-scan:
     name: "OWASP ZAP Automation Framework Scan"
