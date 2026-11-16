@@ -61,6 +61,7 @@ jobs:
       contents: read
       actions: read
       id-token: write
+      security-events: write
 
   siem-telemetry:
     uses: ./.github/workflows/siem-telemetry.yml
