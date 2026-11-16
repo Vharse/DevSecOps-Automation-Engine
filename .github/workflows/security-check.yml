@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-      security-events: write
+     # security-events: write
     uses: ./.github/workflows/sast.yml
     secrets:
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -30,14 +30,14 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-      security-events: write
+     # security-events: write
     uses: ./.github/workflows/secret-scanning.yml
 
   container-and-sbom:
     permissions:
       contents: read
       pull-requests: read
-      security-events: write
+     # security-events: write
     uses: ./.github/workflows/container-sbom.yml
     secrets:
       DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
@@ -47,7 +47,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-      security-events: write
+     # security-events: write
     uses: ./.github/workflows/iac-opa.yml
 
   scorecard-audit:
@@ -57,7 +57,7 @@ jobs:
       pull-requests: read
       actions: read
       id-token: write
-      security-events: write
+     # security-events: write
     uses: ./.github/workflows/scorecard.yml
 
   siem-telemetry:
@@ -73,7 +73,7 @@ jobs:
     uses: ./.github/workflows/dast.yml
     permissions:
       contents: read
-      security-events: write
+     # security-events: write
     with:
       target_url: "http://localhost:8080"
       zap_plan_path: ".zap/zap-plan.yaml"
