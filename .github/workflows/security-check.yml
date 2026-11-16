@@ -16,8 +16,11 @@ permissions:
 =======
   actions: read
   id-token: write
+<<<<<<< HEAD
   security-events: write
 >>>>>>> c3acf81 (fix(ci): update workflow permissions)
+=======
+>>>>>>> c81bd8e (fix(ci): restrict security-events write permission to least-privilege jobs)
 
 jobs:
   sast:
