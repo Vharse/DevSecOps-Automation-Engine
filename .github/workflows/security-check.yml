@@ -34,12 +34,14 @@ jobs:
     uses: ./.github/workflows/secret-scanning.yml
     permissions:
       contents: read
+      pull-requests: read
       security-events: write
 
   container-and-sbom:
     uses: ./.github/workflows/container-sbom.yml
     permissions:
       contents: read
+      pull-requests: read
       security-events: write
     secrets:
       DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
@@ -49,6 +51,7 @@ jobs:
     uses: ./.github/workflows/iac-opa.yml
     permissions:
       contents: read
+      pull-requests: read
       security-events: write
 
   scorecard-audit:
