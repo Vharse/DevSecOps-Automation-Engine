@@ -69,7 +69,7 @@ cbor==1.0.0
 cbor2==6.1.2
 celery==5.6.3
 censys==2.2.19
-certifi==2026.7.22
+certifi==2026.10.18
 certipy-ad==5.1.0
 cffi==2.0.0
 cfgv==3.5.0
