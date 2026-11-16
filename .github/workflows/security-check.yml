@@ -68,7 +68,8 @@ jobs:
     uses: ./.github/workflows/scorecard.yml
     permissions:
       contents: read
-      security-events: write
+      actions: read
+      id-token: write
 
   siem-telemetry:
     permissions:
