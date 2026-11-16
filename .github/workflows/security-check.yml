@@ -16,6 +16,12 @@ permissions:
   actions: read
   id-token: write
 
+steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egressive-policy: audit
+
 jobs:
   sast:
     uses: ./.github/workflows/sast.yml
