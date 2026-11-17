@@ -1,5 +1,4 @@
 name: Product Security Check
-
 on:
   push:
     branches: [main, ci-updates]
