@@ -521,7 +521,7 @@ traitlets==5.14.3
 translationstring==1.4
 trio==0.33.0
 trio-websocket==0.12.2
-Twisted==26.4.0
+Twisted==26.10.0rc1
 txaio==25.9.2
 typeguard==4.4.4
 types-aiofiles==25.1
