@@ -13,8 +13,11 @@ jobs:
     name: "SCA, Container Scan & SBOM"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       security-events: write
+      id-token: write
+      contents: read
+      actions: read
+
     outputs:
       trivy-json-path: trivy-results.json
     steps:

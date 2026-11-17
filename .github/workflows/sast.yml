@@ -17,8 +17,10 @@ jobs:
     name: "SAST, Secrets & SonarQube"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       security-events: write
+      id-token: write
+      contents: read
+      actions: read
       pull-requests: read
     outputs:
       semgrep-json-path: semgrep-results.json
