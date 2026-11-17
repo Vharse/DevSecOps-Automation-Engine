@@ -1,4 +1,9 @@
 {
+  "name": "gitleaks-github-action",
+  "license": "SEE LICENSE IN COMMERCIAL-LICENSE.txt",
+  "scripts": {
+    "build": "ncc build src/index.js -o dist"
+  },
   "dependencies": {
     "@actions/artifact": "2.3.2",
     "@actions/cache": "4.0.3",
@@ -10,6 +15,7 @@
   "devDependencies": {
     "@vercel/ncc": "0.34.0"
   },
-  "license": "SEE LICENSE IN COMMERCIAL-LICENSE.txt",
-  "name": "gitleaks-github-action"
+  "overrides": {
+    "minimatch": "^11.0.1"
+  }
 }
