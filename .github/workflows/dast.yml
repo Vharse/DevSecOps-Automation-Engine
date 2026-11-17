@@ -30,6 +30,9 @@ jobs:
   dast-scan:
     name: "OWASP ZAP Automation Framework Scan"
     runs-on: ubuntu-latest
+   # permissions:
+     # contents: read
+     # security-events: write
 
     steps:
       - name: "Checkout Source Code"
