@@ -8,10 +8,7 @@ jobs:
     name: "IaC & OPA Policy Enforcement"
     runs-on: ubuntu-latest
     permissions:
-      security-events: write
-      id-token: write
       contents: read
-      actions: read
     steps:
       - name: Checkout Code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
