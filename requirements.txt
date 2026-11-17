@@ -377,7 +377,7 @@ PyOpenGL==3.1.10
 pyOpenSSL==26.2.0
 pyotp==2.9.0
 pyparsing==3.3.2
-pypdf==6.9.2
+pypdf==6.21.4
 pyperclip==1.11.0
 pyphen==0.16.0
 pypng==0.20250521.0
