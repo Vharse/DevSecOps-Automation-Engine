@@ -23,19 +23,13 @@ on:
       APP_PASSWORD:
         required: false
 
-#permissions:
-  #contents: read
+permissions:
+  contents: read
 
 jobs:
   dast-scan:
     name: "OWASP ZAP Automation Framework Scan"
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      id-token: write
-      contents: read
-      actions: read
-
 
     steps:
       - name: "Checkout Source Code"

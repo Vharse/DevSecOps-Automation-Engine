@@ -17,6 +17,9 @@ on:
       DEFECTDOJO_API_KEY:
         required: false
 
+permissions:
+  contents: read
+
 jobs:
   defectdojo-ingestion:
     name: "Sync Vulnerabilities to DefectDojo"
