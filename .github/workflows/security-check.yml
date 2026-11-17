@@ -36,6 +36,11 @@ jobs:
 
   scorecard-audit:
     if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+      id-token: write
     uses: ./.github/workflows/scorecard.yml
 
   siem-telemetry:
