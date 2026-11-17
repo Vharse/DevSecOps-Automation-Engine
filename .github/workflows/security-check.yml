@@ -16,15 +16,6 @@ permissions:
 jobs:
   sast:
     uses: ./.github/workflows/sast.yml
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    permissions:
-      contents: read
-      security-events: write
->>>>>>> 4939bfe (fix(ci): add explicit permissions block to sast workflow call)
-=======
->>>>>>> 638f7f4 (build(action): compile ncc distribution bundle with patched minimatch override)
     secrets:
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -33,33 +24,15 @@ jobs:
 
   secret-scanning:
     uses: ./.github/workflows/secret-scanning.yml
-<<<<<<< HEAD
-    permissions:
-      contents: read
-      security-events: write
 
   container-and-sbom:
     uses: ./.github/workflows/container-sbom.yml
-    permissions:
-      contents: read
-      security-events: write
-=======
-
-  container-and-sbom:
-    uses: ./.github/workflows/container-sbom.yml
->>>>>>> 638f7f4 (build(action): compile ncc distribution bundle with patched minimatch override)
     secrets:
       DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
       DEFECTDOJO_API_KEY: ${{ secrets.DEFECTDOJO_API_KEY }}
 
   iac-and-opa:
     uses: ./.github/workflows/iac-opa.yml
-<<<<<<< HEAD
-    permissions:
-      contents: read
-      security-events: write
-=======
->>>>>>> 638f7f4 (build(action): compile ncc distribution bundle with patched minimatch override)
 
   scorecard-audit:
     if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
