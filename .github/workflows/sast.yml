@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write
-      pull-requests: read
     outputs:
       semgrep-json-path: semgrep-results.json
       gitleaks-json-path: gitleaks-results.json
