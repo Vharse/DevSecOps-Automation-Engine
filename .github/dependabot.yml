@@ -63,24 +63,3 @@ updates:
         patterns:
           - "*"
 
-  # 3. Node.js / npm (CodeQL Action Directory)
-  - package-ecosystem: "npm"
-    directory: "/.github/actions/codeql-action"
-    schedule:
-      interval: "weekly"
-      day: "wednesday"
-      time: "06:00"
-      timezone: "Africa/Lagos"
-    cooldown:
-      default-days: 7
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore(codeql-action)"
-    labels:
-      - "dependencies"
-      - "javascript"
-      - "github-actions"
-    groups:
-      all-codeql-action-npm:
-        patterns:
-          - "*"
