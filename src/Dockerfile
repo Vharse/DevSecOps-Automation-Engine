@@ -7,7 +7,7 @@ ENV PATH="/app/venv/bin:$PATH"
 
 COPY requirements.txt .
 
-RUN apk update && apk add --no-cache build-base python3-dev
+RUN if [ -s requirements.txt ]; then pip install --no-cache-dir --only-binary=:all: -r requirements.txt || pip install --no-cache-dir -r requirements.txt; fi
 
 FROM cgr.dev/chainguard/python:latest-dev
 
