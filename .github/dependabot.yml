@@ -84,24 +84,3 @@ updates:
       all-codeql-action-npm:
         patterns:
           - "*"
-
-  # 4. Python / pip (src Directory)
-  - package-ecosystem: "pip"
-    directory: "/src"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "06:00"
-      timezone: "Africa/Lagos"
-    cooldown:
-      default-days: 7
-    open-pull-requests-limit: 10
-    commit-message:
-      prefix: "chore(pip-src)"
-    labels:
-      - "dependencies"
-      - "python"
-    groups:
-      all-pip-src:
-        patterns:
-          - "*"
