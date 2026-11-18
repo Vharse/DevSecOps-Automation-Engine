@@ -5,16 +5,17 @@ WORKDIR /app
 RUN python -m venv /app/venv
 ENV PATH="/app/venv/bin:$PATH"
 
-COPY requirements.txt .
+COPY src/requirements.txt .
 
-RUN pip install --no-cache-dir --require-hashes --only-binary :all: -r requirements.txt
+RUN pip install --no-cache-dir --only-binary :all: -r requirements.txt
 
 FROM cgr.dev/chainguard/python:latest-dev
 
 WORKDIR /app
 
 COPY --from=builder /app/venv /app/venv
-COPY app.py .
+
+COPY src/app.py .
 
 ENV PATH="/app/venv/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
