@@ -3,7 +3,7 @@ FROM cgr.dev/chainguard/python@sha256:88d8715285b78746679a86fa126fe01e68b7940c32
 
 WORKDIR /app
 
-RUN python -m venv /app/venv
+RUN ["python", "-m", "venv", "/app/venv"]
 ENV PATH="/app/venv/bin:$PATH"
 
 COPY requirements.txt .
