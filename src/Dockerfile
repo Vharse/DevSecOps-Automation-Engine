@@ -5,7 +5,7 @@ WORKDIR /app
 RUN python -m venv /app/venv
 ENV PATH="/app/venv/bin:$PATH"
 
-COPY src/requirements.txt .
+COPY requirements.txt .
 
 RUN pip install --no-cache-dir --only-binary :all: -r requirements.txt
 
@@ -15,7 +15,7 @@ WORKDIR /app
 
 COPY --from=builder /app/venv /app/venv
 
-COPY src/app.py .
+COPY app.py .
 
 ENV PATH="/app/venv/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
