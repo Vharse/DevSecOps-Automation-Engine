@@ -7,7 +7,7 @@ ENV PATH="/app/venv/bin:$PATH"
 
 COPY requirements.txt .
 
-RUN if [ -s requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+RUN if [ -s requirements.txt ]; then pip install --no-cache-dir --require-hashes --only-binary :all: -r requirements.txt; fi
 
 FROM cgr.dev/chainguard/python:latest-dev
 
