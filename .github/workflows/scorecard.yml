@@ -1,10 +1,9 @@
-
 name: "OpenSSF Scorecard Workflow"
 
 on:
   workflow_call:
 
- permissions:
+permissions:
   contents: read
 
 jobs:
