@@ -36,10 +36,10 @@ jobs:
         if: steps.check_dockerfile.outputs.exists == 'true'
         run: |
           if [ -f "src/Dockerfile" ]; then
-            [ -f "src/requirements.txt" ] || touch src/requirements.txt
+            touch -a src/requirements.txt
             docker build -t local-test-image:latest -f src/Dockerfile src/
           else
-            [ -f "requirements.txt" ] || touch requirements.txt
+            touch -a requirements.txt
             docker build -t local-test-image:latest .
           fi
 
