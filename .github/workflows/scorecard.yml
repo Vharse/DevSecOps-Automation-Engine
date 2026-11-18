@@ -32,6 +32,6 @@ jobs:
 
       - name: Upload SARIF to GitHub Security Tab
         if: github.actor != 'dependabot[bot]'
-        uses: github/codeql-action/upload-sarif@b56ba49b26e5fce358fc2798bef36dca13de15c4
+        uses: github/codeql-action/upload-sarif@v4.39.3
         with:
           sarif_file: scorecard-results.sarif
