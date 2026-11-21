@@ -105,26 +105,6 @@ updates:
         patterns:
           - "*"
 
-  # 1F. Semgrep Action (Pip / Poetry)
-  - package-ecosystem: "pip"
-    directory: "/.github/actions/semgrep-action"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "06:00"
-      timezone: "Africa/Lagos"
-    cooldown:
-      default-days: 5
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore(deps)"
-    labels:
-      - "dependencies"
-      - "pip"
-    groups:
-      semgrep-pip:
-        patterns:
-          - "*"
 
   # 1C. CodeQL Action (npm)
   - package-ecosystem: "npm"
