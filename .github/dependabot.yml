@@ -38,11 +38,32 @@ updates:
       - "dependencies"
       - "github-actions"
     groups:
-      all-actions:
+      slack-actions:
         patterns:
           - "*"
 
-  # 1C. CodeQL Action (npm)
+  # 1C. Slack Action (npm)
+  - package-ecosystem: "npm"
+    directory: "/.github/actions/slack-github-action"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Africa/Lagos"
+    cooldown:
+      default-days: 5
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - "dependencies"
+      - "npm"
+    groups:
+      slack-npm:
+        patterns:
+          - "*"
+
+  # 1D. CodeQL Action (npm)
   - package-ecosystem: "npm"
     directory: "/.github/actions/codeql-action"
     schedule:
@@ -63,7 +84,7 @@ updates:
         patterns:
           - "*"
 
-  # 1D. Gitleaks Action (npm)
+  # 1E. Gitleaks Action (npm)
   - package-ecosystem: "npm"
     directory: "/.github/actions/gitleaks-action"
     schedule:
@@ -84,7 +105,7 @@ updates:
         patterns:
           - "*"
 
-  # 1E. Semgrep Action (Pip)
+  # 1F. Semgrep Action (Pip / Poetry)
   - package-ecosystem: "pip"
     directory: "/.github/actions/semgrep-action"
     schedule:
