@@ -85,7 +85,7 @@ updates:
           - "*"
 
   # 1E. Semgrep Action (Poetry)
-  - package-ecosystem: "poetry"
+  - package-ecosystem: "pip"
     directory: "/.github/actions/semgrep-action"
     schedule:
       interval: "weekly"
@@ -99,9 +99,9 @@ updates:
       prefix: "chore(deps)"
     labels:
       - "dependencies"
-      - "poetry"
+      - "pip"
     groups:
-      semgrep-poetry:
+      semgrep-pip:
         patterns:
           - "*"
 
