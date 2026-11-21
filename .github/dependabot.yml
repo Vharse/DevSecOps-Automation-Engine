@@ -105,6 +105,7 @@ updates:
         patterns:
           - "*"
 
+<<<<<<< HEAD
 
   # 1C. CodeQL Action (npm)
   - package-ecosystem: "npm"
@@ -169,6 +170,8 @@ updates:
         patterns:
           - "*"
 
+=======
+>>>>>>> 653f1bd (fix(dependabot): fix YAML indentation in dependabot.yml)
   # 2. Docker Base Images (Tuesday)
   - package-ecosystem: "docker"
     directory: "/src"
