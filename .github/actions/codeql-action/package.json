@@ -94,6 +94,7 @@
     "eslint-plugin-jsx-a11y": {
       "semver": ">=6.3.1"
     },
-    "undici": "^6.28.0"
+    "undici": "^6.28.0",
+    "glob": ">=14.0.2"
   }
 }
