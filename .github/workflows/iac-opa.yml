@@ -18,7 +18,7 @@ jobs:
       - name: Setup Open Policy Agent
         uses: open-policy-agent/setup-opa@b2b258e089860efaadaaf71bf6e3aecb4a3eeff1
         with:
-          version: latest
+          version: "v0.68.0"
 
       - name: Evaluate OPA Rego Policies
         run: |
