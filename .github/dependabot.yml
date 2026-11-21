@@ -84,7 +84,7 @@ updates:
         patterns:
           - "*"
 
-  # 1E. Semgrep Action (Poetry)
+  # 1E. Semgrep Action (Pip)
   - package-ecosystem: "pip"
     directory: "/.github/actions/semgrep-action"
     schedule:
