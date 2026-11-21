@@ -9,7 +9,6 @@ license = "Proprietary"
 python = ">=3.10"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.0.1"
 jsonschema = "^4.4.0"
 PyYAML = "^6.0"
 
