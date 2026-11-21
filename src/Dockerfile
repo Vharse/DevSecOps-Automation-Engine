@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/python@sha256:88d8715285b78746679a86fa126fe01e68b7940c3299ee3b4cf8245d4b17095f AS builder
+FROM cgr.dev/chainguard/python@sha256:f6e5c2e056393d48fa8afa1ea58a1394db4cd5de1a8f0f48105c8e88fcd4f9d3 AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY requirements.txt .
 # NOSONAR: unpinned requirements and source installation are managed via CI pipeline security scans
 RUN if [ -s requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
 
-FROM cgr.dev/chainguard/python@sha256:88d8715285b78746679a86fa126fe01e68b7940c3299ee3b4cf8245d4b17095f AS runtime
+FROM cgr.dev/chainguard/python@sha256:f6e5c2e056393d48fa8afa1ea58a1394db4cd5de1a8f0f48105c8e88fcd4f9d3 AS runtime
 WORKDIR /app
 
 COPY --from=builder /app/venv /app/venv
