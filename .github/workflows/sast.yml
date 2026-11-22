@@ -29,14 +29,14 @@ jobs:
           persist-credentials: false
 
       - name: Gitleaks Secret Scan
-        uses: Vharse/Devsecops-Automation-Engine/.github/actions/gitleaks-action@main
+        uses: ./.github/actions/gitleaks-action
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_REPORT: gitleaks-results.json
 
       - name: Semgrep SAST Scan
-        uses: Vharse/Devsecops-Automation-Engine/.github/actions/semgrep-action@main
+        uses: ./.github/actions/semgrep-action
         continue-on-error: true
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
