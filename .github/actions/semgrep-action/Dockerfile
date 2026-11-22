@@ -1,4 +1,4 @@
-FROM returntocorp/semgrep:1.36.0
+FROM returntocorp/semgrep:1.36.0@sha256:71cfff54a7b4464fcefd0d27e70060dec57483ae6b4d42bfd107c0e24a27cf8d
 
 USER root
 WORKDIR /semgrep-agent
