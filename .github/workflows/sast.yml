@@ -36,7 +36,7 @@ jobs:
           GITLEAKS_REPORT: gitleaks-results.json
 
       - name: Semgrep SAST Scan
-        uses: Vharse/Devsecops-Automation-Engine/.github/actions/semgrep-action@main
+        uses: ./.github/actions/semgrep-action
         continue-on-error: true
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
