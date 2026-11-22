@@ -19,10 +19,10 @@ else
   npm ci --no-audit --no-fund --include-workspace-root
 fi
 
-if [ -x "./node_modules/.bin/tsx" ]; then
+if [[ -x "./node_modules/.bin/tsx" ]]; then
   ./node_modules/.bin/tsx sync.ts
 elif [ -x "../../../node_modules/.bin/tsx" ]; then
   ../../../node_modules/.bin/tsx sync.ts
 else
-  npx --yes tsx@latest sync.ts
+  npx --no-install tsx sync.ts
 fi
