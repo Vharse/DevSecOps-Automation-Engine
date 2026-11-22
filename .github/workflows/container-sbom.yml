@@ -45,7 +45,7 @@ jobs:
 
       - name: Trivy Container Scan
         if: steps.check_dockerfile.outputs.exists == 'true'
-        uses: Vharse/Devsecops-Automation-Engine/.github/actions/trivy-action@main
+        uses: ./.github/actions/trivy-action
         with:
           scan-type: "image"
           image-ref: "local-test-image:latest"
@@ -65,7 +65,7 @@ jobs:
 
       - name: Generate SBOM
         if: always()
-        uses: Vharse/Devsecops-Automation-Engine/.github/actions/trivy-action@main
+        uses: ./.github/actions/trivy-action
         with:
           scan-type: "fs"
           format: "spdx-json"
