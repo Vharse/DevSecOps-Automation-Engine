@@ -29,7 +29,7 @@ jobs:
           persist-credentials: false
 
       - name: Gitleaks Secret Scan
-        uses: Vharse/Devsecops-Automation-Engine/.github/actions/gitleaks-action@main
+        uses: ./.github/actions/gitleaks-action
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
