@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: Run Checkov IaC Scan
-        uses: bridgecrewio/checkov-action@v12
+        uses: bridgecrewio/checkov-action@d4770c1ac4a966d8c3305b79c348c26232123aa1
         with:
           directory: k8s
           framework: kustomize kubernetes
