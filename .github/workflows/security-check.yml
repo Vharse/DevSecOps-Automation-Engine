@@ -1,9 +1,9 @@
 name: Product Security Check
 on:
   push:
-    branches: [main, ci-updates]
+    branches: [main, ci-updates, feat/infrastructure]
   pull_request:
-    branches: [main, ci-updates]
+    branches: [main, ci-updates, feat/infrastructure]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
