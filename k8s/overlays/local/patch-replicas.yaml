@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-workload
+  namespace: devsecops-lab
+spec:
+  replicas: 1

@@ -20,8 +20,43 @@ jobs:
         with:
           version: "v0.68.0"
 
+      - name: Run OPA Policy Unit Tests
+        run: |
+          if [ -d "policies/opa" ]; then
+            opa test policies/opa/ -v
+          fi
+
+      - name: Run Checkov IaC Scan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: k8s
+          framework: kustomize kubernetes
+          soft_fail: false
+          quiet: true
+
       - name: Evaluate OPA Rego Policies
         run: |
           if [ -d "policies/opa" ]; then
-            opa eval --data policies/opa/ "data"
+            for overlay in k8s/overlays/local k8s/overlays/prod; do
+              if [ -d "$overlay" ]; then
+                echo "=== Evaluating $overlay ==="
+                DENIALS=$(kubectl kustomize "$overlay" \
+                  | python3 -c 'import json, sys, yaml; print(json.dumps([d for d in yaml.safe_load_all(sys.stdin) if d is not None]))' \
+                  | opa eval -I --format raw -d policies/opa/ "data.kubernetes.pod_security.deny")
+                echo "Policy denials ($overlay): $DENIALS"
+                if [ "$DENIALS" != "[]" ]; then
+                  echo "::error::OPA policy violations found in $overlay: $DENIALS"
+                  exit 1
+                fi
+              fi
+            done
+
+            if [ -f "tfplan.json" ]; then
+              TF_DENIALS=$(opa eval --format raw -i tfplan.json -d policies/opa/ "data.main.deny")
+              echo "Terraform policy denials: $TF_DENIALS"
+              if [ "$TF_DENIALS" != "[]" ]; then
+                echo "::error::OPA Terraform policy violations found: $TF_DENIALS"
+                exit 1
+              fi
+            fi
           fi
