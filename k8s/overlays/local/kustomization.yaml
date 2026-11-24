@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - path: patch-replicas.yaml
+  - path: patch-pull-policy.yaml
+  - path: patch-security-context.yaml
+
+images:
+  - name: ghcr.io/example/sample-app
+    newName: devsecops-engine
+    newTag: local
