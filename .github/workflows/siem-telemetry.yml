@@ -10,8 +10,6 @@ on:
         required: false
       ELASTIC_API_KEY:
         required: false
-      SLACK_WEBHOOK_URL:
-        required: false
 
 jobs:
   siem-telemetry:
@@ -21,7 +19,6 @@ jobs:
     env:
       ELASTIC_HOST: ${{ secrets.ELASTIC_HOST }}
       ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - name: Healthcheck & Ingest Telemetry
         continue-on-error: true
@@ -33,14 +30,3 @@ jobs:
               -d "{\"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\", \"repository\": \"${{ github.repository }}\", \"actor\": \"${{ github.actor }}\", \"status\": \"Pipeline Run Completed\"}" || echo "SIEM Endpoint unreachable. Non-blocking skip."
           fi
 
-      - name: Send Slack Notification
-        if: always() && env.SLACK_WEBHOOK_URL != ''
-        continue-on-error: true
-        uses: ./.github/actions/slack-github-action
-        with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
-          payload: |
-            {
-              "text": "*DevSecOps Security Gate Result*: ${{ github.repository }}\n*Triggered by*: `${{ github.actor }}`\n*Status*: `${{ job.status }}`"
-            }

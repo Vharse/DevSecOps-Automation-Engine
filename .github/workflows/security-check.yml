@@ -20,7 +20,6 @@ jobs:
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   secret-scanning:
     uses: ./.github/workflows/secret-scanning.yml
@@ -50,7 +49,6 @@ jobs:
     secrets:
       ELASTIC_HOST: ${{ secrets.ELASTIC_HOST }}
       ELASTIC_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   dast:
     name: "DAST Scan"
