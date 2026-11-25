@@ -4,7 +4,6 @@ import json
 import logging
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-# Configure structured logging for SIEM ingestion
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"), format="%(message)s")
 logger = logging.getLogger("DevSecOpsEngine")
 
@@ -17,10 +16,8 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
             "python_version": sys.version.split()[0]
         }
         
-        # Log event for SIEM telemetry
         logger.info(json.dumps(payload))
         
-        # Respond to healthcheck and ZAP requests
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.end_headers()
@@ -34,7 +31,6 @@ def main():
     port = int(os.getenv("PORT", 8080))
     server_address = ("0.0.0.0", port)
     
-    # TLS is terminated at the proxy/ingress layer in staging and production environments.
     httpd = HTTPServer(server_address, HealthCheckHandler)  # nosonar
     logger.info(json.dumps({"event": "server_start", "port": port}))
     

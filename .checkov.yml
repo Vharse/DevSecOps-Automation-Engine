@@ -1,0 +1,8 @@
+directory:
+  - k8s
+framework:
+  - kustomize
+  - kubernetes
+soft-fail: false
+quiet: true
+compact: true
