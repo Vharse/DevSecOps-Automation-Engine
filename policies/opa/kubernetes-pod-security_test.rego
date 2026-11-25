@@ -1,5 +1,7 @@
 package kubernetes.pod_security
 
+import rego.v1
+
 test_denies_missing_run_as_non_root if {
 	count(deny) > 0 with input as {
 		"kind": "Deployment",
