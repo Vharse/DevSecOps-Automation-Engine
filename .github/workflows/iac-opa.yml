@@ -26,11 +26,22 @@ jobs:
             opa test policies/opa/ -v
           fi
 
+      - name: Render Kustomize Overlays
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/rendered-k8s
+          for overlay in k8s/overlays/local k8s/overlays/prod; do
+            if [ -d "$overlay" ]; then
+              env_name=$(basename "$overlay")
+              kubectl kustomize "$overlay" > "/tmp/rendered-k8s/${env_name}.yaml"
+            fi
+          done
+
       - name: Run Checkov IaC Scan
         uses: bridgecrewio/checkov-action@d4770c1ac4a966d8c3305b79c348c26232123aa1
         with:
-          directory: k8s
-          framework: kustomize kubernetes
+          directory: /tmp/rendered-k8s
+          framework: kubernetes
           soft_fail: false
           quiet: true
 
@@ -60,3 +71,7 @@ jobs:
               fi
             fi
           fi
+
+      - name: Clean Up Rendered Manifests
+        if: always()
+        run: rm -rf /tmp/rendered-k8s
