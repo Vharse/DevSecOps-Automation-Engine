@@ -12,4 +12,4 @@ patches:
 images:
   - name: ghcr.io/example/sample-app
     newName: devsecops-engine
-    newTag: local
+    newTag: 0.1.0-local
