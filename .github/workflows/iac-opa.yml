@@ -50,9 +50,10 @@ jobs:
           if [ -d "policies/opa" ]; then
             for overlay in k8s/overlays/local k8s/overlays/prod; do
               if [ -d "$overlay" ]; then
-                echo "=== Evaluating $overlay ==="
+                env_name=$(basename "$overlay")
+                echo "=== Evaluating $overlay (env=$env_name) ==="
                 DENIALS=$(kubectl kustomize "$overlay" \
-                  | python3 -c 'import json, sys, yaml; print(json.dumps([d for d in yaml.safe_load_all(sys.stdin) if d is not None]))' \
+                  | ENV_NAME="$env_name" python3 -c 'import json, os, sys, yaml; env = os.environ["ENV_NAME"]; docs = []; [docs.append({**d, "environment": env}) for d in yaml.safe_load_all(sys.stdin) if isinstance(d, dict)]; print(json.dumps(docs))' \
                   | opa eval -I --format raw -d policies/opa/ "data.kubernetes.pod_security.deny")
                 echo "Policy denials ($overlay): $DENIALS"
                 if [ "$DENIALS" != "[]" ]; then

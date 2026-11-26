@@ -18,3 +18,8 @@ __pycache__/
 .idea/
 .DS_Store*.swp
 *.swo
+
+# Terraform provider caches and state
+**/.terraform/
+*.tfstate
+*.tfstate.*
