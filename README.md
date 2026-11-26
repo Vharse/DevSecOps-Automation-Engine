@@ -139,34 +139,34 @@ Devsecops-Automation-Engine/
 ├── README.md                                 # System documentation
 └── SECURITY.md                               # Vulnerability disclosure and security policy
 
-Required Repository Secrets
+## Required Repository Secrets
 
 To run all pipeline jobs successfully, configure these secrets under Settings → Secrets and variables → Actions:
-Secret Name    Description    Example / Scope
-SEMGREP_APP_TOKEN    (Optional) Authentication token from Semgrep AppSec    semgrep_...
-SONAR_TOKEN    Global analysis authentication token for SonarQube    sqa_...
-SONAR_HOST_URL    Endpoint URL for SonarQube server    [https://sonar.your-domain.com](https://sonar.your-domain.com)
-APP_USER    Test user credential for DAST authentication scans    dast_scanner
-APP_PASSWORD    Test user password for DAST authentication scans    SuperSecretPassword123!
-DEFECTDOJO_URL    Endpoint URL for DefectDojo instance    [https://defectdojo.your-domain.com](https://defectdojo.your-domain.com)
-DEFECTDOJO_API_KEY    User API Key for DefectDojo ingestion    Token 8a9b...
-ELASTIC_HOST    Endpoint URL for Elastic SIEM cluster    [https://elastic.your-domain.com:9243](https://elastic.your-domain.com:9243)
-ELASTIC_API_KEY    Base64 encoded Elastic API Key for log ingestion    V2...==
-SLACK_WEBHOOK_URL    (Optional) Slack Incoming Webhook URL for automated channel alerting    [https://hooks.slack.com/services/](https://hooks.slack.com/services/)...
-Usage & Integration
+
+#Secret Name   			Description   					 		Example / Scope
+SEMGREP_APP_TOKEN    		(Optional) Authentication token from Semgrep AppSec    		semgrep_...
+SONAR_TOKEN    			Global analysis authentication token for SonarQube    		sqa_...
+SONAR_HOST_URL    		Endpoint URL for SonarQube server    				https://sonar.your-domain.com
+APP_USER    			Test user credential for DAST authentication scans    		dast_scanner
+APP_PASSWORD    		Test user password for DAST authentication scans    		324sA0Exxxxxxxxx
+DEFECTDOJO_URL    		Endpoint URL for DefectDojo instance    			https://defectdojo.your-domain.com
+DEFECTDOJO_API_KEY    		User API Key for DefectDojo ingestion    			Token 8a9b...
+ELASTIC_HOST    		Endpoint URL for Elastic SIEM cluster    			https://elastic.your-domain.com:9243
+ELASTIC_API_KEY    		Base64 encoded Elastic API Key for log ingestion    		V2...==
+SLACK_WEBHOOK_URL    		(Optional) Slack Incoming Webhook URL for channel alerting    	https://hooks.slack.com/services........
+
+## Usage & Integration
 Reusing this Engine in Client Repositories
 
-To consume this centralized security engine inside any client repository, create Vharse/DevSecOps-Automation-Engine/.github/workflows/security-check.yml in your target repo:
-
-YAML
+To consume this centralized security engine inside any client repository, create `.github/workflows/security-check.yml` in the client repo and point uses: from `uses:./.github/workflows/security-check.yml` to `uses:Vharse/Devsecops-Automation-Engine/.github/workflows/security-check.yml@main`
 
 name: Security Check
 
 on:
   push:
-    branches: [ "main", "ci-updates" ]
+    branches: [ "main", "your-github-branch-name" ]
   pull_request:
-    branches: [ "main", "ci-updates" ]
+    branches: [ "main", "your-github-branch-name" ]
 
 jobs:
   run-security-engine:
