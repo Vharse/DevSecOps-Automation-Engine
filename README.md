@@ -6,6 +6,7 @@ An enterprise-grade, centralized DevSecOps Automation Engine designed to standar
 
 The DevSecOps Automation Engine functions as a centralized security authority. Client repositories or local pipelines execute modular, parallel reusable workflows to enforce shift-left security before code compilation or deployment.
 
+```
                              ┌───────────────────────────────────────────┐
                              │           Developer Push / PR             │
                              └─────────────────────┬─────────────────────┘
@@ -36,7 +37,7 @@ The DevSecOps Automation Engine functions as a centralized security authority. C
                              │      Elastic SIEM Telemetry Collector     │
                              │           (devsecops-pipeline-logs)       │
                              └───────────────────────────────────────────┘
-
+```
 **Key Accomplishments & Technical Features**
 
     **Decoupled Reusable Workflow Architecture (security-check.yml)**
@@ -94,8 +95,8 @@ The DevSecOps Automation Engine functions as a centralized security authority. C
 
 1. Repository events are delivered via a configured GitHub repository webhook (`application/json` with a generated GitHub webhook secret) rather than embedding inline Slack notification steps inside workflow YAML.
 
-Repository Structure
-Plaintext
+### Repository Structure
+```Plaintext
 
 Devsecops-Automation-Engine/
 ├── .github/
@@ -138,28 +139,32 @@ Devsecops-Automation-Engine/
 ├── LICENSE                                   # MIT Open Source License
 ├── README.md                                 # System documentation
 └── SECURITY.md                               # Vulnerability disclosure and security policy
-
+```
 ## Required Repository Secrets
 
 To run all pipeline jobs successfully, configure these secrets under Settings → Secrets and variables → Actions:
 
-#Secret Name   			Description   					 		Example / Scope
-SEMGREP_APP_TOKEN    		(Optional) Authentication token from Semgrep AppSec    		semgrep_...
-SONAR_TOKEN    			Global analysis authentication token for SonarQube    		sqa_...
-SONAR_HOST_URL    		Endpoint URL for SonarQube server    				https://sonar.your-domain.com
-APP_USER    			Test user credential for DAST authentication scans    		dast_scanner
-APP_PASSWORD    		Test user password for DAST authentication scans    		324sA0Exxxxxxxxx
-DEFECTDOJO_URL    		Endpoint URL for DefectDojo instance    			https://defectdojo.your-domain.com
-DEFECTDOJO_API_KEY    		User API Key for DefectDojo ingestion    			Token 8a9b...
-ELASTIC_HOST    		Endpoint URL for Elastic SIEM cluster    			https://elastic.your-domain.com:9243
-ELASTIC_API_KEY    		Base64 encoded Elastic API Key for log ingestion    		V2...==
-SLACK_WEBHOOK_URL    		(Optional) Slack Incoming Webhook URL for channel alerting    	https://hooks.slack.com/services........
+```
+#Secret Name   			    Description   					 		                            Example / Scope
+SEMGREP_APP_TOKEN    	  (Optional) Authentication token from Semgrep AppSec    	semgrep_...
+SONAR_TOKEN    			    Global analysis authentication token for SonarQube    	sqa_...
+SONAR_HOST_URL    		  Endpoint URL for SonarQube server    				            https://sonar.your-domain.com
+APP_USER    			      Test user credential for DAST authentication scans    	dast_scanner
+APP_PASSWORD    		    Test user password for DAST authentication scans    		324sA0Exxxxxxxxx
+DEFECTDOJO_URL    		  Endpoint URL for DefectDojo instance    			          https://defectdojo.your-domain.com
+DEFECTDOJO_API_KEY    	User API Key for DefectDojo ingestion    			          Token 8a9b...
+ELASTIC_HOST    		    Endpoint URL for Elastic SIEM cluster    			          https://elastic.your-domain.com:9243
+ELASTIC_API_KEY    		  Base64 encoded Elastic API Key for log ingestion    		V2...==
+SLACK_WEBHOOK_URL    		(Optional) Slack Incoming Webhook URL for channel-      https://hooks.slack.com/services........
+                        alerting
 
+```
 ## Usage & Integration
-Reusing this Engine in Client Repositories
+Reusing this Engine in Client Repositories:
 
 To consume this centralized security engine inside any client repository, create `.github/workflows/security-check.yml` in the client repo and point uses: from `uses:./.github/workflows/security-check.yml` to `uses:Vharse/Devsecops-Automation-Engine/.github/workflows/security-check.yml@main`
 
+```
 name: Security Check
 
 on:
@@ -178,3 +183,4 @@ jobs:
       checks: write
       actions: read
     secrets: inherit
+
