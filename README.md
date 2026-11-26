@@ -156,7 +156,7 @@ SLACK_WEBHOOK_URL    (Optional) Slack Incoming Webhook URL for automated channel
 Usage & Integration
 Reusing this Engine in Client Repositories
 
-To consume this centralized security engine inside any client repository, create .github/workflows/security-check.yml in your target repo:
+To consume this centralized security engine inside any client repository, create Vharse/DevSecOps-Automation-Engine/.github/workflows/security-check.yml in your target repo:
 
 YAML
 

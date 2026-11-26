@@ -77,12 +77,20 @@ jobs:
     name: Slack Webhook Notification
     runs-on: ubuntu-latest
     if: always()
+    permissions:
+      actions: read
     needs: [sast, secret-scanning, container-and-sbom, iac-and-opa, scorecard-audit, siem-telemetry, dast, defectdojo-ingestion]
     steps:
       - name: Send Slack Notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           REF_NAME: ${{ github.ref_name }}
           ACTOR: ${{ github.actor }}
           SHA_SHORT: ${{ github.sha }}
@@ -101,6 +109,19 @@ jobs:
             exit 0
           fi
 
+          TRIGGER_LABEL="${EVENT_NAME}"
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            if [ "$EVENT_ACTION" = "closed" ] && [ "$PR_MERGED" = "true" ]; then
+              TRIGGER_LABEL="PR #${PR_NUMBER} Merged"
+            elif [ "$EVENT_ACTION" = "opened" ]; then
+              TRIGGER_LABEL="PR #${PR_NUMBER} Created"
+            else
+              TRIGGER_LABEL="PR #${PR_NUMBER} (${EVENT_ACTION})"
+            fi
+          elif [ "$EVENT_NAME" = "push" ]; then
+            TRIGGER_LABEL="Push to ${REF_NAME}"
+          fi
+
           STATUS="PASSED"
           ICON=":white_check_mark:"
           for res in "$SAST_RES" "$SECRET_RES" "$CONTAINER_RES" "$IAC_RES" "$SCORECARD_RES" "$SIEM_RES" "$DAST_RES" "$DEFECTDOJO_RES"; do
@@ -111,9 +132,26 @@ jobs:
             fi
           done
 
+          FAILURE_LINE=""
+          if [ "$STATUS" = "FAILED" ]; then
+            JOBS_JSON=$(curl -sS -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${REPO}/actions/runs/${RUN_ID}/jobs")
+
+            FAILED_SUMMARY=$(echo "$JOBS_JSON" | jq -r '
+              [ .jobs[]? | select(.conclusion == "failure") |
+                "\(.name) (Step: \(([.steps[]? | select(.conclusion == "failure") | .name] | join(", ")) // "unknown"))"
+              ] | join("; ")
+            ')
+
+            if [ -n "$FAILED_SUMMARY" ]; then
+              FAILURE_LINE="\n• *Failure Details:* ${FAILED_SUMMARY}"
+            fi
+          fi
+
           PAYLOAD=$(jq -n \
-            --arg text "${ICON} *${STATUS}* — \`${REPO}\` (\`${REF_NAME}\`)" \
-            --arg details "• *Actor:* ${ACTOR} | *Commit:* \`${SHA_SHORT:0:7}\`\n• *SAST:* ${SAST_RES} | *Secrets:* ${SECRET_RES} | *Container/SBOM:* ${CONTAINER_RES} | *IaC/OPA:* ${IAC_RES}\n• *Scorecard:* ${SCORECARD_RES} | *SIEM:* ${SIEM_RES} | *DAST:* ${DAST_RES} | *DefectDojo:* ${DEFECTDOJO_RES}\n• <${RUN_URL}|View Workflow Run>" \
+            --arg text "${ICON} *${STATUS}* — \`${REPO}\` (\`${REF_NAME}\`) | *${TRIGGER_LABEL}*" \
+            --arg details "• *Event:* ${TRIGGER_LABEL} | *Actor:* ${ACTOR} | *Commit:* \`${SHA_SHORT:0:7}\`\n• *SAST:* ${SAST_RES} | *Secrets:* ${SECRET_RES} | *Container/SBOM:* ${CONTAINER_RES} | *IaC/OPA:* ${IAC_RES}\n• *Scorecard:* ${SCORECARD_RES} | *SIEM:* ${SIEM_RES} | *DAST:* ${DAST_RES} | *DefectDojo:* ${DEFECTDOJO_RES}${FAILURE_LINE}\n• <${RUN_URL}|View Workflow Run>" \
             '{
               text: $text,
               blocks: [
