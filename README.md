@@ -142,7 +142,7 @@ Devsecops-Automation-Engine/
 ```
 ## Required Repository Secrets
 
-To run all pipeline jobs successfully, configure these secrets under Settings → Secrets and variables → Actions:
+To run all pipeline jobs successfully, configure these secrets under Settings → Secrets and variables → Actions
 
 ```
 #Secret Name   			    Description   					 		                            Example / Scope
@@ -155,8 +155,7 @@ DEFECTDOJO_URL    		  Endpoint URL for DefectDojo instance    			          https
 DEFECTDOJO_API_KEY    	User API Key for DefectDojo ingestion    			          Token 8a9b...
 ELASTIC_HOST    		    Endpoint URL for Elastic SIEM cluster    			          https://elastic.your-domain.com:9243
 ELASTIC_API_KEY    		  Base64 encoded Elastic API Key for log ingestion    		V2...==
-SLACK_WEBHOOK_URL    		(Optional) Slack Incoming Webhook URL for channel-      https://hooks.slack.com/services........
-                        alerting
+SLACK_WEBHOOK_URL    		(Optional) Slack Webhook URL for channel alarting       https://hooks.slack.com/services........
 
 ```
 ## Usage & Integration
