@@ -145,17 +145,18 @@ Devsecops-Automation-Engine/
 To run all pipeline jobs successfully, configure these secrets under Settings → Secrets and variables → Actions
 
 ```
-#Secret Name   			    Description   					 		                            Example / Scope
-SEMGREP_APP_TOKEN    	  (Optional) Authentication token from Semgrep AppSec    	semgrep_...
-SONAR_TOKEN    			    Global analysis authentication token for SonarQube    	sqa_...
-SONAR_HOST_URL    		  Endpoint URL for SonarQube server    				            https://sonar.your-domain.com
-APP_USER    			      Test user credential for DAST authentication scans    	dast_scanner
-APP_PASSWORD    		    Test user password for DAST authentication scans    		324sA0Exxxxxxxxx
-DEFECTDOJO_URL    		  Endpoint URL for DefectDojo instance    			          https://defectdojo.your-domain.com
+#Secret Name   		Description   						Example / Scope
+
+SEMGREP_APP_TOKEN    	(Optional) Authentication token from Semgrep AppSec  	semgrep_...
+SONAR_TOKEN		Global analysis authentication token for SonarQube  	sqa_...
+SONAR_HOST_URL    	Endpoint URL for SonarQube server    			https://sonar.your-domain.com
+APP_USER		Test user credential for DAST authentication scans    	dast_scanner
+APP_PASSWORD    	Test user password for DAST authentication scans    	324sA0Exxxxxxxxx
+DEFECTDOJO_URL    	Endpoint URL for DefectDojo instance   		        https://defectdojo.your-domain.com
 DEFECTDOJO_API_KEY    	User API Key for DefectDojo ingestion    			          Token 8a9b...
-ELASTIC_HOST    		    Endpoint URL for Elastic SIEM cluster    			          https://elastic.your-domain.com:9243
-ELASTIC_API_KEY    		  Base64 encoded Elastic API Key for log ingestion    		V2...==
-SLACK_WEBHOOK_URL    		(Optional) Slack Webhook URL for channel alarting       https://hooks.slack.com/services........
+ELASTIC_HOST    	Endpoint URL for Elastic SIEM cluster    		https://elastic.your-domain.com:9243
+ELASTIC_API_KEY    	Base64 encoded Elastic API Key for log ingestion    	V2...==
+SLACK_WEBHOOK_URL    	(Optional) Slack Webhook URL for channel alarting       https://hooks.slack.com/services........
 
 ```
 ## Usage & Integration
